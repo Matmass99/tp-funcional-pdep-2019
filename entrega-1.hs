@@ -36,16 +36,35 @@ fingirAmor :: Participante -> String -> Participante
 fingirAmor uneParticipante nueveEnamorade = uneParticipante {enamorade = nueveEnamorade}
 
 -- PUNTO 2
+vocales :: String -> Bool
+vocales  = any ( 'a' || 'e' || 'i' || 'o' || 'u' ) 
+
+sacandoVocales :: Participante -> [Char]
+sacandoVocales (Participante _ _ _ enamorade _ ) = filter (vocales) enamorade
+
+largoDelNombreDeLaEnamorada :: [Char] -> Int
+largoDelNombreDeLaEnamorada  = (length) . (sacandoVocales)
+
 incrementarVelocidad :: Participante -> Participante
-  
+
+incrementarVelocidad (Participante _ _ velocidad enamorade _ ) = 
+    (largoDelNombreDeLaEnamorada == 1)  (||) . (largoDelNombreDeLaEnamorada == 2) = nitro
+incrementarVelocidad (Participante _ _ velocidad enamorade _ ) = 
+    (largoDelNombreDeLaEnamorada == 3) (||) . (largoDelNombreDeLaEnamorada == 4) = velocidad + 20
+incrementarVelocidad (Participante _ _ velocidad enamorade _ ) = 
+    (largoDelNombreDeLaEnamorada > 4) = velocidad + 30
 -- PUNTO 3
 puedeRealizarTruco :: Participante -> Bool
-puedeRealizarTruco (uneParticipante _ nafta velocidad _ _) = (nafa != 0) && (velocidad < 100) 
+puedeRealizarTruco (uneParticipante _ nivelDeNafta velocidad _ _) = (nivelDeNafta > 0) (&&) .(<) velocidad  100 
 
 -- PUNTO 4
 -- Nuevos trucos
 comboLoco :: Participante -> Participante
 
+cambiarEnamorada :: Participante -> Participante
+cambiarEnamorada (Participante _ _ _ enamorade _ ) = fingirAmor
+
 queTrucazo :: Participante -> Participante
+queTrucazo (Participante _ _ velocidad enamorade _) = (incrementarVelocidad) . (cambiarEnamorada) 
 
 turbo :: Participante -> Participante
