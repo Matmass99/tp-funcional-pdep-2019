@@ -7,17 +7,17 @@ data Participante = Participante {
                                   nivelDeNafta :: Int, 
                                   velocidad :: Int, 
                                   enamorade :: String}
-                                  -- truco :: }
+                                  truco :: String
                                   deriving (Show)
                                   
 -- Autos
-rochaMcQueen  = Participante { nombre = "Rocha McQueen", nivelDeNafta = 300, velocidad = 0 enamorade = "Ronco" -- truco = deReversa }
+rochaMcQueen  = Participante { nombre = "Rocha McQueen", nivelDeNafta = 300, velocidad = 0 enamorade = "Ronco"  truco = deReversa }
 
-biankerr      = Participante { nombre = "Biankerr", nivelDeNafta = 500, velocidad = 20  enamorade = "Tinch" --truco = impresionar }
+biankerr      = Participante { nombre = "Biankerr", nivelDeNafta = 500, velocidad = 20  enamorade = "Tinch" truco = impresionar }
 
-gushtav       = Participante { nombre = "Gushtav", nivelDeNafta = 200, velocidad = 130 enamorade = "PetiLaLinda" -- truco = nitr }
+gushtav       = Participante { nombre = "Gushtav", nivelDeNafta = 200, velocidad = 130 enamorade = "PetiLaLinda" truco = nitro }
 
-rodra         = Participante { nombre = "Rodra", nivelDeNafta = 0, velocidad = 50 enamorade = "Taisa" -- truco = fingirAmor con petra }
+rodra         = Participante { nombre = "Rodra", nivelDeNafta = 0, velocidad = 50 enamorade = "Taisa"  truco = fingirAmor con petra }
 
 -- PUNTO 1.2
 -- Trucos
@@ -36,7 +36,22 @@ fingirAmor :: Participante -> String -> Participante
 fingirAmor uneParticipante nueveEnamorade = uneParticipante {enamorade = nueveEnamorade}
 
 -- PUNTO 2
+vocales :: String -> Bool
+vocales  = any ( 'a' || 'e' || 'i' || 'o' || 'u' ) 
+
+sacandoVocales :: Participante -> [Char]
+sacandoVocales (Participante _ _ _ enamorade _ ) = filter (vocales) enamorade
+
+largoDelNombreDeLaEnamorada :: [Char] -> Int
+largoDelNombreDeLaEnamorada  = (length) . (sacandoVocales)
+
 incrementarVelocidad :: Participante -> Participante
+incrementarVelocidad (Participante _ _ velocidad enamorade _ ) = 
+    (largoDelNombreDeLaEnamorada == 1)  (||) . (largoDelNombreDeLaEnamorada == 2) = nitro
+incrementarVelocidad (Participante _ _ velocidad nombreDeEnamodada _ ) = 
+    (largoDelNombreDeLaEnamorada == 3) (||) . (largoDelNombreDeLaEnamorada == 4) = velocidad + 20
+incrementarVelocidad (Participante _ _ velocidad enamorade _ ) = 
+    (largoDelNombreDeLaEnamorada > 4) = velocidad + 30
   
 -- PUNTO 3
 puedeRealizarTruco :: Participante -> Bool
@@ -46,6 +61,10 @@ puedeRealizarTruco (uneParticipante _ nafta velocidad _ _) = (nafa != 0) && (vel
 -- Nuevos trucos
 comboLoco :: Participante -> Participante
 
-queTrucazo :: Participante -> Participante
 
+cambiarEnamorada :: Participante-> Participante
+cambiarEnamorada (Participante _ _ _ enamorade _ ) = fingirAmor
+
+queTrucazo :: Participante -> Participante
+queTrucazo (Participante _ _ velocidad enamorade _) = (incrementarVelocidad) . (cambiarEnamorada) 
 turbo :: Participante -> Participante
